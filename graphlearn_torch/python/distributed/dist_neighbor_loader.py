@@ -96,7 +96,10 @@ class DistNeighborLoader(DistLoader):
                to_device: Optional[torch.device] = None,
                random_seed: Optional[int] = None,
                worker_options: Optional[AllDistSamplingWorkerOptions] = None):
-
+    if (input_nodes is None) == (node_sampler_input is None):
+      raise ValueError(
+        f"Exactly one of input_nodes or node_sampler_input must be provided. Received input_nodes: {type(input_nodes)}, node_sampler_input: {type(node_sampler_input)}"
+      )
     if isinstance(input_nodes, tuple):
       input_type, input_seeds = input_nodes
     elif input_nodes is not None:
