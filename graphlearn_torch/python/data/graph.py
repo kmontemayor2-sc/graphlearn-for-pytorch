@@ -211,6 +211,10 @@ class Graph(object):
     self.topo.share_memory_()
     self.mode = mode.upper()
     self.device = device
+    if col_count is not None:
+      print(f"Reusing cached col_count: {col_count}")
+    else:
+      print("col count not provided, will compute it from indices")
     self._cached_col_count = None if col_count is None else int(col_count)
 
     if self.mode != 'CPU' and self.device is not None:
